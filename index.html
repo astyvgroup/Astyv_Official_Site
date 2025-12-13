@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coming Soon</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: 1px;
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -15px;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 2px;
+      background: #fff;
+      opacity: 0.6;
+    }
+
+    p {
+      margin-top: 30px;
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      opacity: 0.75;
+    }
+
+    /* Floating glow animation */
+    .glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .glow.one {
+      top: 10%;
+      left: 10%;
+    }
+
+    .glow.two {
+      bottom: 10%;
+      right: 10%;
+      animation-delay: 3s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Subtle background glow elements -->
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+
+  <div class="container">
+    <h1>We Are Coming Soon</h1>
+    <p>Something amazing is in the works.</p>
+  </div>
+
+  <script>
+    // Simple text pulse animation
+    const title = document.querySelector('h1');
+
+    setInterval(() => {
+      title.style.opacity = '0.85';
+      setTimeout(() => {
+        title.style.opacity = '1';
+      }, 600);
+    }, 4000);
+  </script>
+
+</body>
+</html>
