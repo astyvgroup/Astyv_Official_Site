@@ -9,6 +9,7 @@ export default function ContactForm() {
     const [formData, setFormData] = useState({ name: '', email: '', company: '', phone: '', service: '', budget: '', message: '' });
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState('idle');
+    const [errorDetail, setErrorDetail] = useState('');
 
     const validate = () => {
         const errs = {};
@@ -25,11 +26,13 @@ export default function ContactForm() {
         e.preventDefault();
         if (!validate()) return;
         setStatus('sending');
+        setErrorDetail('');
         try {
             await sendContactForm(formData);
             setStatus('success');
             setFormData({ name: '', email: '', company: '', phone: '', service: '', budget: '', message: '' });
-        } catch {
+        } catch (err) {
+            setErrorDetail(err?.message || '');
             setStatus('error');
         }
     };
@@ -94,9 +97,12 @@ export default function ContactForm() {
                 {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
             </div>
             {status === 'error' && (
-                <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
-                    <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
-                    <p className="text-sm text-red-300">{form.errorMessage}</p>
+                <div className="flex items-start gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
+                    <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    <div className="text-sm text-red-300">
+                        <p>{form.errorMessage}</p>
+                        {errorDetail && <p className="text-xs text-red-300/80 mt-1">{errorDetail}</p>}
+                    </div>
                 </div>
             )}
             <button type="submit" disabled={status === 'sending'} className="w-full py-3.5 rounded-full bg-primary-500 text-white font-semibold hover:bg-primary-600 disabled:opacity-60 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2">

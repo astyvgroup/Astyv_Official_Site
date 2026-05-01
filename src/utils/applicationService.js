@@ -1,61 +1,63 @@
 // =====================================================================
-// ** EmailJS Configuration — Application Form (with PDF attachment)
+//  Careers application form delivery via Web3Forms
 // =====================================================================
-// EmailJS free tier supports attachments up to 50KB.
-// For larger PDFs, upgrade to a paid plan or use a different backend.
+//
+//  Both contact and careers forms now use Web3Forms with the SAME
+//  access key — they both deliver to astyv.group@gmail.com. The
+//  subject prefixes ("[Careers]" vs "[Contact]") let you filter/search
+//  in Gmail to tell them apart instantly.
+//
+//  No file attachments — Web3Forms gates that behind a paid plan.
+//  After receiving an application, reply to the applicant (replyto is
+//  set, so hitting Reply in Gmail goes straight to them) and ask for
+//  their resume as an email attachment.
 // =====================================================================
 
-import emailjs from '@emailjs/browser';
+const ACCESS_KEY =
+    import.meta.env.VITE_WEB3FORMS_KEY || 'a864b9a3-8f7b-4df1-96d1-3376b5152aeb';
 
-const APPLICATION_EMAILJS_CONFIG = {
-    serviceId: "YOUR_SERVICE_ID",
-    templateId: "YOUR_APPLICATION_TEMPLATE_ID",
-    confirmationTemplateId: "YOUR_CONFIRMATION_TEMPLATE_ID",
-    publicKey: "YOUR_PUBLIC_KEY",
-};
+const ENDPOINT = 'https://api.web3forms.com/submit';
 
-export function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
+export async function sendApplication(formData /* , resumeFile (unused) */) {
+    if (!ACCESS_KEY || ACCESS_KEY.startsWith('PASTE_')) {
+        throw new Error(
+            'Email service not configured. Get a free Web3Forms key at https://web3forms.com and paste it as ACCESS_KEY.'
+        );
+    }
+
+    const who = formData.name || 'Unknown applicant';
+    const role = formData.role || 'General application';
+
+    const payload = {
+        access_key: ACCESS_KEY,
+        from_name: who,
+        replyto: formData.email,
+        // Name first so the inbox preview surfaces the candidate immediately,
+        // and the [Careers] prefix groups all applications together.
+        subject: `[Careers] ${who} — ${role}`,
+        Name: who,
+        Email: formData.email,
+        Phone: formData.phone || 'Not provided',
+        Role: role,
+        LinkedIn: formData.linkedin || 'Not provided',
+        'Cover Note': formData.coverNote || 'Not provided',
+        botcheck: '',
+    };
+
+    const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
     });
-}
 
-export async function sendApplication(formData, resumeFile) {
-    const base64Resume = await fileToBase64(resumeFile);
+    let data;
+    try { data = await res.json(); } catch { data = {}; }
 
-    const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone || "Not provided",
-        role: formData.role || "General Application",
-        linkedin: formData.linkedin || "Not provided",
-        cover_note: formData.coverNote || "Not provided",
-        resume_name: resumeFile.name,
-        resume_base64: base64Resume,
-    };
-
-    // Send application to hr@astyv.com
-    await emailjs.send(
-        APPLICATION_EMAILJS_CONFIG.serviceId,
-        APPLICATION_EMAILJS_CONFIG.templateId,
-        templateParams,
-        APPLICATION_EMAILJS_CONFIG.publicKey
-    );
-
-    // Send confirmation email to applicant
-    const confirmationParams = {
-        to_email: formData.email,
-        from_name: formData.name,
-        role: formData.role || "General Application",
-    };
-
-    await emailjs.send(
-        APPLICATION_EMAILJS_CONFIG.serviceId,
-        APPLICATION_EMAILJS_CONFIG.confirmationTemplateId,
-        confirmationParams,
-        APPLICATION_EMAILJS_CONFIG.publicKey
-    );
+    if (!res.ok || !data.success) {
+        throw new Error(
+            data.message ||
+            `Application send failed (HTTP ${res.status}). Please email astyv.group@gmail.com directly.`
+        );
+    }
+    return data;
 }

@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Upload, X, FileText, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import siteContent from '../../config/siteContent';
 import { sendApplication } from '../../utils/applicationService';
 
@@ -9,45 +9,29 @@ export default function ApplicationForm({ role = '', isGeneral = false }) {
     const [formData, setFormData] = useState({
         name: '', email: '', phone: '', role: role || '', linkedin: '', coverNote: '',
     });
-    const [resumeFile, setResumeFile] = useState(null);
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState('idle'); // idle | sending | success | error
-    const fileInputRef = useRef(null);
+    const [errorDetail, setErrorDetail] = useState('');
 
     const validate = () => {
         const errs = {};
         if (!formData.name || formData.name.length < 2) errs.name = 'Name is required (min 2 characters)';
         if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errs.email = 'Valid email is required';
-        if (!resumeFile) errs.resume = 'Please upload your resume (PDF)';
         setErrors(errs);
         return Object.keys(errs).length === 0;
-    };
-
-    const handleFileChange = (e) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-        if (file.type !== 'application/pdf') {
-            setErrors(prev => ({ ...prev, resume: 'Only PDF files are accepted' }));
-            return;
-        }
-        if (file.size > content.fields.resume.maxSizeMB * 1024 * 1024) {
-            setErrors(prev => ({ ...prev, resume: `File must be under ${content.fields.resume.maxSizeMB}MB` }));
-            return;
-        }
-        setResumeFile(file);
-        setErrors(prev => { const { resume, ...rest } = prev; return rest; });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validate()) return;
         setStatus('sending');
+        setErrorDetail('');
         try {
-            await sendApplication(formData, resumeFile);
+            await sendApplication(formData);
             setStatus('success');
             setFormData({ name: '', email: '', phone: '', role: '', linkedin: '', coverNote: '' });
-            setResumeFile(null);
-        } catch {
+        } catch (err) {
+            setErrorDetail(err?.message || '');
             setStatus('error');
         }
     };
@@ -151,39 +135,19 @@ export default function ApplicationForm({ role = '', isGeneral = false }) {
                 />
             </div>
 
-            {/* Resume Upload */}
-            <div>
-                <label className="block text-sm font-medium text-zinc-300 mb-1.5">{content.fields.resume.label}</label>
-                {resumeFile ? (
-                    <div className="flex items-center gap-3 p-3 rounded-lg bg-dark-tertiary border border-primary-500/30">
-                        <FileText className="w-5 h-5 text-primary-400 shrink-0" />
-                        <div className="flex-1 min-w-0">
-                            <p className="text-sm text-white truncate">{resumeFile.name}</p>
-                            <p className="text-xs text-zinc-500">{(resumeFile.size / 1024).toFixed(0)} KB</p>
-                        </div>
-                        <button type="button" onClick={() => { setResumeFile(null); if (fileInputRef.current) fileInputRef.current.value = ''; }} className="text-zinc-400 hover:text-red-400">
-                            <X size={16} />
-                        </button>
-                    </div>
-                ) : (
-                    <div
-                        onClick={() => fileInputRef.current?.click()}
-                        className="flex flex-col items-center justify-center p-6 rounded-lg border-2 border-dashed border-white/10 hover:border-primary-500/30 cursor-pointer transition-colors"
-                    >
-                        <Upload className="w-8 h-8 text-zinc-500 mb-2" />
-                        <p className="text-sm text-zinc-400">Click to upload PDF</p>
-                        <p className="text-xs text-zinc-600 mt-1">Max {content.fields.resume.maxSizeMB}MB</p>
-                    </div>
-                )}
-                <input ref={fileInputRef} type="file" accept=".pdf" onChange={handleFileChange} className="hidden" />
-                {errors.resume && <p className="text-red-400 text-xs mt-1">{errors.resume}</p>}
-            </div>
+            {/* Resume note — we collect resumes via reply email after initial review */}
+            <p className="text-xs text-zinc-500 leading-relaxed">
+                Once we review your application, we'll email you to request your resume as an attachment.
+            </p>
 
             {/* Error banner */}
             {status === 'error' && (
-                <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
-                    <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
-                    <p className="text-sm text-red-300">{content.errorMessage}</p>
+                <div className="flex items-start gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
+                    <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    <div className="text-sm text-red-300">
+                        <p>{content.errorMessage}</p>
+                        {errorDetail && <p className="text-xs text-red-300/80 mt-1">{errorDetail}</p>}
+                    </div>
                 </div>
             )}
 
