@@ -1,0 +1,12 @@
+# Astyv — robots.txt
+# Allow all crawlers full access. Sitemap is the authoritative URL list.
+
+User-agent: *
+Allow: /
+
+# Block staging/dev paths if any future ones get added
+Disallow: /admin/
+Disallow: /preview/
+
+# Sitemap
+Sitemap: https://astyv.com/sitemap.xml

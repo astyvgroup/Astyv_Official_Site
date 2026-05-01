@@ -1,0 +1,155 @@
+{
+    "lastUpdated": "2025-03-09T00:00:00Z",
+    "listings": [
+        {
+            "id": "sr-fullstack-001",
+            "title": "Senior Full-Stack Engineer",
+            "department": "Engineering",
+            "location": "Remote (US/EU)",
+            "type": "Full-Time",
+            "experience": "5+ years",
+            "description": "Build and scale enterprise applications across the stack. You'll work with React, Node.js, and cloud-native architecture to deliver production-grade solutions for Fortune 500 clients.",
+            "responsibilities": [
+                "Design and implement scalable web applications end-to-end",
+                "Collaborate with product and design teams to define technical solutions",
+                "Lead code reviews and mentor junior engineers",
+                "Contribute to architecture decisions and technical strategy",
+                "Own features from concept to production deployment"
+            ],
+            "requirements": [
+                "5+ years of professional software development experience",
+                "Strong proficiency in TypeScript, React, and Node.js",
+                "Experience with cloud platforms (AWS, Azure, or GCP)",
+                "Solid understanding of system design and distributed systems",
+                "Excellent communication and collaboration skills"
+            ],
+            "niceToHave": [
+                "Experience with Kubernetes and containerized deployments",
+                "Background in enterprise or consulting environments",
+                "Open source contributions"
+            ],
+            "active": true,
+            "postedDate": "2025-03-01"
+        },
+        {
+            "id": "cloud-architect-002",
+            "title": "Cloud Solutions Architect",
+            "department": "Consulting",
+            "location": "Remote (Global)",
+            "type": "Full-Time",
+            "experience": "8+ years",
+            "description": "Design and lead cloud migration strategies for Fortune 500 clients. You'll be the technical authority on complex transformation programs.",
+            "responsibilities": [
+                "Lead cloud architecture design for enterprise clients",
+                "Conduct technical discovery and assessment workshops",
+                "Create migration roadmaps and reference architectures",
+                "Guide implementation teams through complex cloud migrations",
+                "Present technical strategies to C-level stakeholders"
+            ],
+            "requirements": [
+                "8+ years in software architecture or cloud engineering",
+                "Deep expertise in AWS or Azure (certifications preferred)",
+                "Experience leading large-scale migration programs",
+                "Strong client-facing communication skills",
+                "Track record of designing systems that serve 100K+ users"
+            ],
+            "niceToHave": [
+                "Multi-cloud experience (AWS + Azure + GCP)",
+                "Background in Big Four or management consulting",
+                "Published thought leadership on cloud architecture"
+            ],
+            "active": true,
+            "postedDate": "2025-02-20"
+        },
+        {
+            "id": "ml-engineer-003",
+            "title": "Machine Learning Engineer",
+            "department": "AI & Data",
+            "location": "Remote (US/EU/India)",
+            "type": "Full-Time",
+            "experience": "4+ years",
+            "description": "Build production machine learning systems for enterprise clients. You'll take models from research to production, building robust ML pipelines that scale.",
+            "responsibilities": [
+                "Design and implement end-to-end ML pipelines",
+                "Build feature engineering and model training infrastructure",
+                "Deploy and monitor ML models in production environments",
+                "Collaborate with data scientists to productionize research",
+                "Optimize model performance and inference latency"
+            ],
+            "requirements": [
+                "4+ years in machine learning engineering",
+                "Strong Python skills with PyTorch or TensorFlow",
+                "Experience with MLOps tools (MLflow, Kubeflow, SageMaker)",
+                "Solid understanding of distributed computing",
+                "Experience deploying models to production at scale"
+            ],
+            "niceToHave": [
+                "Experience with LLMs and generative AI",
+                "Background in NLP or computer vision",
+                "Contributions to ML open source projects"
+            ],
+            "active": true,
+            "postedDate": "2025-02-15"
+        },
+        {
+            "id": "tech-recruiter-004",
+            "title": "Technical Recruiter — Engineering",
+            "department": "Talent & Staffing",
+            "location": "Remote (US)",
+            "type": "Full-Time",
+            "experience": "3+ years",
+            "description": "Source and recruit senior engineers for both internal teams and client placements.",
+            "responsibilities": [
+                "Source and engage passive engineering candidates",
+                "Conduct technical phone screens and evaluate candidates",
+                "Partner with engineering leaders on hiring strategy",
+                "Manage full-cycle recruiting for multiple roles simultaneously",
+                "Build and maintain a pipeline of top engineering talent"
+            ],
+            "requirements": [
+                "3+ years of technical recruiting experience",
+                "Ability to evaluate technical skills and system design thinking",
+                "Experience with ATS platforms and sourcing tools",
+                "Track record of hiring senior+ engineers",
+                "Excellent communication and candidate experience skills"
+            ],
+            "niceToHave": [
+                "Previous software engineering or CS background",
+                "Experience in staffing/consulting firms",
+                "Familiarity with international hiring and compliance"
+            ],
+            "active": true,
+            "postedDate": "2025-03-05"
+        },
+        {
+            "id": "devops-engineer-005",
+            "title": "DevOps / Platform Engineer",
+            "department": "Engineering",
+            "location": "Remote (Global)",
+            "type": "Full-Time",
+            "experience": "4+ years",
+            "description": "Build and maintain CI/CD pipelines, Kubernetes clusters, and infrastructure-as-code for enterprise client projects.",
+            "responsibilities": [
+                "Design and implement CI/CD pipelines using GitHub Actions and GitLab CI",
+                "Manage Kubernetes clusters and container orchestration",
+                "Build and maintain infrastructure-as-code with Terraform",
+                "Implement monitoring, alerting, and observability solutions",
+                "Support engineering teams with developer experience tooling"
+            ],
+            "requirements": [
+                "4+ years of DevOps or platform engineering experience",
+                "Strong Kubernetes and Docker expertise",
+                "Proficiency with Terraform or Pulumi",
+                "Experience with major cloud platforms (AWS/Azure/GCP)",
+                "Understanding of networking, security, and compliance"
+            ],
+            "niceToHave": [
+                "Experience with service mesh (Istio, Linkerd)",
+                "ArgoCD or GitOps workflow experience",
+                "SRE background with on-call experience"
+            ],
+            "active": true,
+            "postedDate": "2025-02-28"
+        }
+    ]
+}

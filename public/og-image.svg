@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="auroraA" cx="20%" cy="0%" r="55%">
+      <stop offset="0%" stop-color="#852BED" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#852BED" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="auroraB" cx="85%" cy="100%" r="60%">
+      <stop offset="0%" stop-color="#A558FF" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#A558FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="textGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#C189FF"/>
+    </linearGradient>
+    <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="rgba(255,255,255,0.06)"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0A0A0A"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#auroraA)"/>
+  <rect width="1200" height="630" fill="url(#auroraB)"/>
+
+  <!-- Border accent -->
+  <rect x="0" y="0" width="1200" height="6" fill="#852BED"/>
+
+  <!-- Astyv "A" mark -->
+  <g transform="translate(80, 120) scale(0.55)">
+    <path d="M284.9,65.3l94.5,212.6h-54.2l-21.8-49.6H106.9l-22.1,49.6H30.5L59.1,214c9.6-21.4,30.7-35,53.9-35h168.4 L241,88.4c-2.5-5.4-7.9-8.6-13.6-8.6h-45c-5.7,0-11.1,3.2-13.2,8.6L145,142.7H90.8l34.6-77.4c9.3-21.4,30.7-35,53.9-35h51.4 C254.2,30.3,275.3,43.9,284.9,65.3z"
+          fill="#852BED"/>
+  </g>
+
+  <!-- ASTYV wordmark -->
+  <text x="80" y="430" font-family="'Manrope', system-ui, sans-serif" font-size="120" font-weight="800" fill="url(#textGrad)" letter-spacing="-2">
+    Astyv
+  </text>
+
+  <!-- Tagline -->
+  <text x="80" y="490" font-family="'Manrope', system-ui, sans-serif" font-size="40" font-weight="500" fill="#ffffff" opacity="0.95">
+    Building What's Next.
+  </text>
+
+  <!-- Subline -->
+  <text x="80" y="540" font-family="'Manrope', system-ui, sans-serif" font-size="22" font-weight="400" fill="#A1A1AA">
+    IT Consulting · Product Innovation · Engineering · Talent
+  </text>
+
+  <!-- URL footer -->
+  <text x="80" y="585" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="400" fill="#A558FF">
+    astyv.com
+  </text>
+
+  <!-- Decorative orb -->
+  <circle cx="1020" cy="315" r="180" fill="#852BED" opacity="0.18"/>
+  <circle cx="1020" cy="315" r="120" fill="#852BED" opacity="0.28"/>
+  <circle cx="1020" cy="315" r="60"  fill="#852BED" opacity="0.45"/>
+</svg>
