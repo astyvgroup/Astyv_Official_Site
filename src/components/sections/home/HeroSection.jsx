@@ -21,7 +21,7 @@ export default function HeroSection() {
 
             {/* Gradient overlays (kept exactly as before) */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-dark-primary z-[1]" />
-            <div className="absolute inset-0 bg-radial-gradient z-[1]" style={{ background: 'radial-gradient(ellipse at center, transparent 0%, #0A0A0A 70%)' }} />
+            <div className="absolute inset-0 bg-radial-gradient z-[1]" style={{ background: 'radial-gradient(ellipse at center, transparent 0%, var(--color-bg-primary) 70%)' }} />
 
             <div className="relative z-10 container-custom text-center px-4 pt-20">
                 {/* New: brand overline pill */}

@@ -22,7 +22,7 @@ export default function GlowCard({ children, className = '' }) {
             transition={{ duration: 0.3 }}
             className={`relative overflow-hidden rounded-xl border border-white/[0.06] bg-dark-secondary p-6 lg:p-8 group ${className}`}
             style={{
-                background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(124,58,237,0.08) 0%, transparent 50%), #111111`,
+                background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(124,58,237,0.08) 0%, transparent 50%), var(--color-bg-secondary)`,
             }}
         >
             {/* Hover border glow */}

@@ -4,6 +4,7 @@ import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion } from 'framer-motion';
 import BrandLogo from '../../ui/BrandLogo';
+import useTheme from '../../../hooks/useTheme';
 
 // Global mouse tracking so it works even when canvas is behind content
 const globalMouse = { x: 0, y: 0, active: false };
@@ -37,7 +38,7 @@ if (typeof window !== 'undefined') {
     });
 }
 
-function PointCloud({ count = 10000, color = "#9b6dff", size = 0.03 }) {
+function PointCloud({ count = 10000, color = "#9b6dff", size = 0.03, blending = THREE.AdditiveBlending, opacity = 1 }) {
     const geomRef = useRef();
     const { camera } = useThree();
 
@@ -219,28 +220,54 @@ function PointCloud({ count = 10000, color = "#9b6dff", size = 0.03 }) {
             <PointMaterial
                 transparent
                 color={color}
+                opacity={opacity}
                 size={size}
                 sizeAttenuation={true}
                 depthWrite={false}
-                blending={THREE.AdditiveBlending}
+                blending={blending}
             />
         </points>
     );
 }
 
-// Global fixed background canvas component
+// Global fixed background canvas component.
+//
+// Particle blending switches per theme:
+//  - Dark: AdditiveBlending — bright glowy purples on near-black bg
+//  - Light: NormalBlending — opaque deep purples that stay visible on white
+// Additive blending on a white background saturates to white, making
+// particles invisible — that's why we swap.
 function FixedBackground() {
+    const { theme } = useTheme();
+    const isLight = theme === 'light';
+
+    const lightCfg = [
+        { count: 8000, color: '#5b1bb0', size: 0.04, opacity: 0.85 }, // primary-700
+        { count: 5000, color: '#461486', size: 0.05, opacity: 0.95 }, // primary-800
+        { count: 2000, color: '#852BED', size: 0.035, opacity: 0.9 },  // primary-500
+    ];
+    const darkCfg = [
+        { count: 8000, color: '#9b6dff', size: 0.03, opacity: 1 },
+        { count: 5000, color: '#7C3AED', size: 0.04, opacity: 1 },
+        { count: 2000, color: '#ffffff', size: 0.02, opacity: 1 },
+    ];
+    const cfg = isLight ? lightCfg : darkCfg;
+    const blending = isLight ? THREE.NormalBlending : THREE.AdditiveBlending;
+
     return (
         <div className="fixed inset-0 z-[-1] bg-dark-primary pointer-events-none">
             <Canvas camera={{ position: [0, 0, 10], fov: 75 }} style={{ width: '100vw', height: '100vh' }}>
                 <ambientLight intensity={0.5} />
                 <group rotation={[0.2, 0, 0]}>
-                    <PointCloud count={8000} color="#9b6dff" size={0.03} />
-                    <PointCloud count={5000} color="#7C3AED" size={0.04} />
-                    <PointCloud count={2000} color="#ffffff" size={0.02} />
+                    {cfg.map((c, i) => (
+                        <PointCloud key={`${theme}-${i}`} count={c.count} color={c.color} size={c.size} opacity={c.opacity} blending={blending} />
+                    ))}
                 </group>
             </Canvas>
-            <div className="absolute inset-0 bg-radial-gradient" style={{ background: 'radial-gradient(circle at center, transparent 0%, #0A0A0A 85%)' }} />
+            <div
+                className="absolute inset-0 bg-radial-gradient"
+                style={{ background: 'radial-gradient(circle at center, transparent 0%, var(--color-bg-primary) 85%)' }}
+            />
         </div>
     );
 }

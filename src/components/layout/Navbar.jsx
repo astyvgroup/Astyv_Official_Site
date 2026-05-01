@@ -91,7 +91,7 @@ export default function Navbar() {
                         <ThemeToggle />
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="relative z-10 p-2 text-zinc-300"
+                            className="relative z-10 p-2 text-white"
                             aria-label="Toggle menu"
                         >
                             {isOpen ? <X size={24} /> : <Menu size={24} />}

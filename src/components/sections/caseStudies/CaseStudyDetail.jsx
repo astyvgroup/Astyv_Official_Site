@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import RevealOnScroll from '../../ui/RevealOnScroll';
+import TechPill from '../../ui/TechPill';
 import siteContent from '../../../config/siteContent';
 
 export default function CaseStudyDetail() {
@@ -52,7 +53,7 @@ export default function CaseStudyDetail() {
                             {/* Tech tags */}
                             <div className="flex flex-wrap gap-2">
                                 {study.technologies.map((tech) => (
-                                    <span key={tech} className="px-3 py-1 text-xs rounded-full bg-white/5 text-zinc-400 border border-white/[0.06]">{tech}</span>
+                                    <TechPill key={tech} name={tech} />
                                 ))}
                             </div>
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import useTheme from '../../hooks/useTheme';
 
 // Brands simpleicons doesn't host (trademark restrictions). Map them to a
 // short monogram so every pill still shows a visual mark instead of being
@@ -6,6 +7,8 @@ import { useState } from 'react';
 const monogramOverrides = {
     aws: 'AW',
     amazonwebservices: 'AW',
+    'aws ecs': 'AW',
+    'aws sagemaker': 'AW',
     azure: 'AZ',
     microsoftazure: 'AZ',
     openai: 'AI',
@@ -13,8 +16,79 @@ const monogramOverrides = {
     weaviate: 'WV',
 };
 
+// Auto-resolve simpleicons slug from a tech display name. Lets callers pass
+// just a string ("Kubernetes", "PostgreSQL") and still get a logo.
+const slugLookup = {
+    'aws':           'amazonwebservices',
+    'aws ecs':       'amazonwebservices',
+    'aws sagemaker': 'amazonwebservices',
+    'azure':         'microsoftazure',
+    'gcp':           'googlecloud',
+    'kubernetes':    'kubernetes',
+    'docker':        'docker',
+    'terraform':     'terraform',
+    'helm':          'helm',
+    'ansible':       'ansible',
+    'typescript':    'typescript',
+    'python':        'python',
+    'java':          'openjdk',
+    'go':            'go',
+    'rust':          'rust',
+    'react':         'react',
+    'next.js':       'nextdotjs',
+    'nextjs':        'nextdotjs',
+    'node.js':       'nodedotjs',
+    'nodejs':        'nodedotjs',
+    'spring':        'spring',
+    'spring boot':   'spring',
+    '.net':          'dotnet',
+    'flutter':       'flutter',
+    'vue':           'vuedotjs',
+    'svelte':        'svelte',
+    'graphql':       'graphql',
+    'fastapi':       'fastapi',
+    'django':        'django',
+    'flask':         'flask',
+    'snowflake':     'snowflake',
+    'databricks':    'databricks',
+    'apache spark':  'apachespark',
+    'spark':         'apachespark',
+    'kafka':         'apachekafka',
+    'apache kafka':  'apachekafka',
+    'postgresql':    'postgresql',
+    'postgres':      'postgresql',
+    'mongodb':       'mongodb',
+    'mysql':         'mysql',
+    'redis':         'redis',
+    'elasticsearch': 'elasticsearch',
+    'tensorflow':    'tensorflow',
+    'pytorch':       'pytorch',
+    'openai':        'openai',
+    'anthropic':     'anthropic',
+    'langchain':     'langchain',
+    'pinecone':      'pinecone',
+    'weaviate':      'weaviate',
+    'hugging face':  'huggingface',
+    'huggingface':   'huggingface',
+    'github actions': 'githubactions',
+    'gitlab ci':     'gitlab',
+    'gitlab':        'gitlab',
+    'jenkins':       'jenkins',
+    'datadog':       'datadog',
+    'pagerduty':     'pagerduty',
+    'argocd':        'argo',
+    'argo':          'argo',
+    'prometheus':    'prometheus',
+    'grafana':       'grafana',
+};
+
+function resolveSlug(name) {
+    if (!name) return null;
+    return slugLookup[name.toLowerCase().trim()] || null;
+}
+
 function getMonogram(name, slug) {
-    const key = (slug || '').toLowerCase();
+    const key = (slug || name || '').toLowerCase();
     if (monogramOverrides[key]) return monogramOverrides[key];
     const cleaned = (name || '').replace(/[^A-Za-z0-9]/g, '');
     return cleaned.slice(0, 2).toUpperCase() || '?';
@@ -43,7 +117,13 @@ function Monogram({ name, slug, size }) {
 //   - "compact": smaller pill (used in Services > Tech Ecosystem)
 export default function TechPill({ name, slug, variant = 'compact' }) {
     const [logoFailed, setLogoFailed] = useState(false);
-    const src = slug ? `https://cdn.simpleicons.org/${slug}/ffffff` : null;
+    const { theme } = useTheme();
+    // Auto-resolve slug from name if caller didn't pass one explicitly.
+    const effectiveSlug = slug || resolveSlug(name);
+    // simpleicons takes the fill color in the URL — flip per theme so the
+    // glyph stays readable on both backgrounds.
+    const tint = theme === 'light' ? '111111' : 'ffffff';
+    const src = effectiveSlug ? `https://cdn.simpleicons.org/${effectiveSlug}/${tint}` : null;
     const showImg = src && !logoFailed;
     const isMarquee = variant === 'marquee';
 
@@ -69,7 +149,7 @@ export default function TechPill({ name, slug, variant = 'compact' }) {
                     className="opacity-90"
                 />
             ) : (
-                <Monogram name={name} slug={slug} size={monoSize} />
+                <Monogram name={name} slug={effectiveSlug} size={monoSize} />
             )}
             <span>{name}</span>
         </span>

@@ -6,14 +6,14 @@
     <meta name="theme-color" content="__ASTYV_THEME_COLOR__" />
     <meta name="color-scheme" content="dark light" />
 
-    <!-- Theme bootstrap (runs before React) — reads stored preference, falls
-         back to OS preference, defaults to dark. Must be inline + early to
-         avoid a flash of wrong theme on first paint. -->
+    <!-- Theme bootstrap (runs before React) — reads stored user preference,
+         defaults to dark on first visit (regardless of OS setting). Must be
+         inline + early to avoid a flash of wrong theme on first paint. -->
     <script>
       (function() {
         try {
           var stored = localStorage.getItem('astyv:theme');
-          var pref = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          var pref = stored || 'dark';
           var html = document.documentElement;
           html.classList.remove('dark', 'light');
           html.classList.add(pref);

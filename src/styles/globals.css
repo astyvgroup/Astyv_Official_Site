@@ -80,7 +80,10 @@
  * purple. That stays readable (~5:1 contrast) and is intentional for the
  * lighter look. To force-keep text white, use `!text-white`.
  * ----------------------------------------------------------------------- */
-:root.light .text-white                  { color: var(--color-text-primary); }
+:root.light .text-white,
+:root.light .text-white\/85,
+:root.light .text-white\/90,
+:root.light .text-white\/95             { color: var(--color-text-primary); }
 :root.light .text-zinc-200,
 :root.light .text-zinc-300               { color: var(--color-text-primary); }
 :root.light .text-zinc-400               { color: var(--color-text-secondary); }
