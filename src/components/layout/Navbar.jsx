@@ -5,6 +5,7 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import siteContent from '../../config/siteContent';
 import useScrollProgress from '../../hooks/useScrollProgress';
 import BrandLogo from '../ui/BrandLogo';
+import ThemeToggle from '../ui/ThemeToggle';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -77,20 +78,25 @@ export default function Navbar() {
                         <Link
                             to={nav.ctaButton.path}
                             data-cursor="Talk"
-                            className="ml-3 inline-flex items-center gap-1.5 px-5 py-2.5 text-sm font-semibold rounded-full bg-primary-500 text-white hover:bg-primary-600 transition-all duration-200 hover:shadow-lg hover:shadow-primary-500/30 hover:-translate-y-0.5"
+                            className="ml-3 inline-flex items-center gap-1.5 px-5 py-2.5 text-sm font-semibold rounded-full bg-primary-500 !text-white hover:bg-primary-600 transition-all duration-200 hover:shadow-lg hover:shadow-primary-500/30 hover:-translate-y-0.5"
                         >
                             {nav.ctaButton.label}
                             <ArrowRight size={14} />
                         </Link>
+
+                        <ThemeToggle className="ml-3" />
                     </div>
 
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="lg:hidden relative z-10 p-2 text-white"
-                        aria-label="Toggle menu"
-                    >
-                        {isOpen ? <X size={24} /> : <Menu size={24} />}
-                    </button>
+                    <div className="lg:hidden flex items-center gap-2">
+                        <ThemeToggle />
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="relative z-10 p-2 text-zinc-300"
+                            aria-label="Toggle menu"
+                        >
+                            {isOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                    </div>
                 </div>
             </motion.nav>
 
@@ -131,7 +137,7 @@ export default function Navbar() {
                                 <Link
                                     to={nav.ctaButton.path}
                                     onClick={() => setIsOpen(false)}
-                                    className="mt-4 inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-full bg-primary-500 text-white shadow-lg shadow-primary-500/30"
+                                    className="mt-4 inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-full bg-primary-500 !text-white shadow-lg shadow-primary-500/30"
                                 >
                                     {nav.ctaButton.label}
                                     <ArrowRight size={18} />

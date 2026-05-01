@@ -9,7 +9,8 @@
    dev tooling that hasn't run the HTML transform.
    ===================================================================== */
 
-:root {
+:root,
+:root.dark {
   --color-bg-primary: #0A0A0A;
   --color-bg-secondary: #111111;
   --color-bg-tertiary: #1A1A1A;
@@ -26,18 +27,84 @@
   --color-border-medium: rgba(255, 255, 255, 0.10);
   --color-border-strong: rgba(255, 255, 255, 0.20);
   --color-border-accent: rgba(133, 43, 237, 0.30);
+  --color-surface-subtle: rgba(255, 255, 255, 0.05);
+  --color-surface-medium: rgba(255, 255, 255, 0.08);
+  --color-glass-bg: rgba(17, 17, 17, 0.72);
+  --color-glass-strong-bg: rgba(10, 10, 10, 0.85);
+  --color-aurora: radial-gradient(ellipse at 20% 0%, rgba(133, 43, 237, 0.25), transparent 50%),
+                  radial-gradient(ellipse at 80% 100%, rgba(165, 88, 255, 0.20), transparent 50%);
   --nav-height: 80px;
   --section-padding: 120px;
   --section-padding-mobile: 80px;
   --container-max: 1280px;
   --gradient-primary: linear-gradient(135deg, #852BED 0%, #A558FF 50%, #C189FF 100%);
-  --gradient-aurora:
-    radial-gradient(ellipse at 20% 0%, rgba(133, 43, 237, 0.25), transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(165, 88, 255, 0.20), transparent 50%);
+  --gradient-aurora: var(--color-aurora);
   --font-heading: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'Space Grotesk', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
+
+/* ===== Light theme — overrides applied when <html class="light"> ===== */
+:root.light {
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #FAFAFA;
+  --color-bg-tertiary: #F4F4F5;
+  --color-bg-elevated: #FFFFFF;
+  --color-text-primary: #18181B;
+  --color-text-secondary: #52525B;
+  --color-text-tertiary: #71717A;
+  --color-border-subtle: rgba(0, 0, 0, 0.06);
+  --color-border-medium: rgba(0, 0, 0, 0.10);
+  --color-border-strong: rgba(0, 0, 0, 0.16);
+  --color-surface-subtle: rgba(0, 0, 0, 0.03);
+  --color-surface-medium: rgba(0, 0, 0, 0.06);
+  --color-glass-bg: rgba(255, 255, 255, 0.78);
+  --color-glass-strong-bg: rgba(255, 255, 255, 0.92);
+  --color-aurora: radial-gradient(ellipse at 20% 0%, rgba(133, 43, 237, 0.10), transparent 55%),
+                  radial-gradient(ellipse at 80% 100%, rgba(165, 88, 255, 0.08), transparent 55%);
+}
+
+/* -------------------------------------------------------------------------
+ * Light-mode utility overrides
+ *
+ * The codebase uses Tailwind atomic classes (text-white, text-zinc-*,
+ * border-white/*, bg-white/*) that compile to fixed RGB values. Rather
+ * than sweep 48 component files, we override these classes when the html
+ * element has the .light class, mapping them to themed CSS variables.
+ *
+ * Specificity (:root.light .foo) = (0,2,0) beats (.foo) = (0,1,0).
+ * Tailwind doesn't emit !important by default, so this works.
+ *
+ * Buttons that intentionally use `text-white` on a colored bg
+ * (e.g. bg-primary-500) will also flip — text becomes dark zinc on
+ * purple. That stays readable (~5:1 contrast) and is intentional for the
+ * lighter look. To force-keep text white, use `!text-white`.
+ * ----------------------------------------------------------------------- */
+:root.light .text-white                  { color: var(--color-text-primary); }
+:root.light .text-zinc-200,
+:root.light .text-zinc-300               { color: var(--color-text-primary); }
+:root.light .text-zinc-400               { color: var(--color-text-secondary); }
+:root.light .text-zinc-500,
+:root.light .text-zinc-600               { color: var(--color-text-tertiary); }
+
+:root.light .border-white\/5,
+:root.light .border-white\/\[0\.06\]     { border-color: var(--color-border-subtle); }
+:root.light .border-white\/10            { border-color: var(--color-border-medium); }
+:root.light .border-white\/20            { border-color: var(--color-border-strong); }
+
+:root.light .bg-white\/5                 { background-color: var(--color-surface-subtle); }
+:root.light .bg-white\/10                { background-color: var(--color-surface-medium); }
+:root.light .bg-white\/15                { background-color: var(--color-surface-medium); }
+
+/* Hover variants commonly used in the codebase */
+:root.light .hover\:text-white:hover     { color: var(--color-text-primary); }
+:root.light .hover\:bg-white\/5:hover    { background-color: var(--color-surface-subtle); }
+:root.light .hover\:bg-white\/10:hover   { background-color: var(--color-surface-medium); }
+:root.light .hover\:border-white\/10:hover { border-color: var(--color-border-medium); }
+
+/* Divide utility */
+:root.light .divide-white\/\[0\.06\] > * + * { border-color: var(--color-border-subtle); }
+:root.light .divide-white\/10 > * + * { border-color: var(--color-border-medium); }
 
 * {
   margin: 0;
@@ -59,6 +126,7 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
   font-feature-settings: 'cv11', 'ss01', 'ss03';
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -118,17 +186,19 @@ code, pre, kbd, samp {
 }
 
 .glass {
-  background: rgba(17, 17, 17, 0.72);
+  background: var(--color-glass-bg);
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   border: 1px solid var(--color-border-subtle);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .glass-strong {
-  background: rgba(10, 10, 10, 0.85);
+  background: var(--color-glass-strong-bg);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid var(--color-border-medium);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 body.modal-open { overflow: hidden; }
@@ -158,7 +228,7 @@ body.modal-open { overflow: hidden; }
 
 /* Dotted grid background variant */
 .bg-dot-grid {
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--color-border-medium) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 

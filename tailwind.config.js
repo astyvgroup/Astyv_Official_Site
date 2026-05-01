@@ -4,6 +4,7 @@ import design from './src/config/design.js';
 const { fonts, colors, layout } = design;
 
 export default {
+    darkMode: 'class',
     content: [
         './index.html',
         './src/**/*.{js,ts,jsx,tsx}',
@@ -12,7 +13,29 @@ export default {
         extend: {
             colors: {
                 primary: colors.primary,
-                dark: colors.background,
+                // dark.* tokens now reference CSS vars so they auto-theme
+                // with light/dark mode. Original literal values still live
+                // as the dark-mode fallback in :root in globals.css.
+                dark: {
+                    primary:   'var(--color-bg-primary)',
+                    secondary: 'var(--color-bg-secondary)',
+                    tertiary:  'var(--color-bg-tertiary)',
+                    elevated:  'var(--color-bg-elevated)',
+                },
+                // Semantic foreground tokens — always theme-aware.
+                fg: {
+                    DEFAULT: 'var(--color-text-primary)',
+                    muted:   'var(--color-text-secondary)',
+                    subtle:  'var(--color-text-tertiary)',
+                },
+                // Semantic surface tokens for subtle backgrounds/borders.
+                tone: {
+                    'border-subtle': 'var(--color-border-subtle)',
+                    'border-medium': 'var(--color-border-medium)',
+                    'border-strong': 'var(--color-border-strong)',
+                    'surface-subtle': 'var(--color-surface-subtle)',
+                    'surface-medium': 'var(--color-surface-medium)',
+                },
                 accent: {
                     DEFAULT: colors.primary[500],
                     glow: colors.glow.soft,
