@@ -1,33 +1,7 @@
-import { useState } from 'react';
 import RevealOnScroll from '../../ui/RevealOnScroll';
 import SectionHeading from '../../ui/SectionHeading';
+import TechPill from '../../ui/TechPill';
 import siteContent from '../../../config/siteContent';
-
-function TechPill({ name, slug }) {
-    const [logoFailed, setLogoFailed] = useState(false);
-    const src = slug ? `https://cdn.simpleicons.org/${slug}/ffffff` : null;
-    return (
-        <span
-            title={name}
-            className="inline-flex items-center gap-2 px-3 py-1.5 text-xs rounded-full bg-white/5 text-zinc-300 border border-white/[0.06] hover:border-primary-500/30 hover:text-primary-300 transition-all duration-200"
-        >
-            {src && !logoFailed && (
-                <img
-                    src={src}
-                    alt=""
-                    aria-hidden="true"
-                    width={14}
-                    height={14}
-                    loading="lazy"
-                    decoding="async"
-                    onError={() => setLogoFailed(true)}
-                    className="opacity-90"
-                />
-            )}
-            <span>{name}</span>
-        </span>
-    );
-}
 
 export default function TechStack() {
     const { techStack } = siteContent.services;
