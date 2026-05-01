@@ -50,7 +50,7 @@ const contact = {
     heading: "Other Ways to Reach Astyv",
     items: [
       { icon: "Mail",     label: "Email",    value: "hr@astyv.com",                                       link: "mailto:hr@astyv.com" },
-      { icon: "Phone",    label: "Phone",    value: "+91 9177681010",                                     link: "tel:+919177681010" },
+      { icon: "Phone",    label: "Phone",    value: "+91 8442058442",                                     link: "tel:+918442058442" },
       { icon: "MapPin",   label: "Office",   value: "WeWork, Financial District, Hyderabad",              link: "https://maps.google.com/?q=WeWork+Raja+Pushpa+Summit+Financial+District+Hyderabad" },
       { icon: "Linkedin", label: "LinkedIn", value: "/company/astyv",                                     link: "https://linkedin.com/company/astyv" },
     ],

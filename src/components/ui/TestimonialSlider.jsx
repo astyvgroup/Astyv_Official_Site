@@ -26,10 +26,16 @@ export default function TestimonialSlider() {
                         <p className="text-lg md:text-xl lg:text-2xl text-zinc-300 leading-relaxed mb-8 italic">
                             &ldquo;{testimonials[current].quote}&rdquo;
                         </p>
-                        <div>
-                            <p className="text-white font-semibold">{testimonials[current].author}</p>
-                            <p className="text-sm text-zinc-500">{testimonials[current].title}</p>
-                        </div>
+                        {(testimonials[current].author || testimonials[current].title) && (
+                            <div>
+                                {testimonials[current].author && (
+                                    <p className="text-white font-semibold">{testimonials[current].author}</p>
+                                )}
+                                {testimonials[current].title && (
+                                    <p className="text-sm text-zinc-500">{testimonials[current].title}</p>
+                                )}
+                            </div>
+                        )}
                     </motion.div>
                 </AnimatePresence>
             </div>

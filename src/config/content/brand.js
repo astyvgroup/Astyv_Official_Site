@@ -19,8 +19,8 @@ const brand = {
   email: "hr@astyv.com",
   careersEmail: "hr@astyv.com",
   pressEmail: "hr@astyv.com",
-  phone: "+91 9177681010",
-  phoneFormatted: "+91-9177681010",
+  phone: "+91 8442058442",
+  phoneFormatted: "+91-8442058442",
 
   // Office address
   address: {

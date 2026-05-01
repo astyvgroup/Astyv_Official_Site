@@ -151,55 +151,96 @@ const home = {
   },
 
   // ---------------- Tech marquee (NEW) ----------------
+  // Each entry: { name: "displayed label", slug: "simple-icons slug for the logo" }
+  // Find slugs at https://simpleicons.org — copy the slug from the icon page URL.
+  // Logos auto-load from cdn.simpleicons.org. If a slug doesn't exist, only
+  // the name shows (graceful fallback).
   techMarquee: {
     overline: "Technology Stack",
     heading: "We Speak Every Modern Stack",
     subheading: "Technology-agnostic but opinion-rich. We pick the right tool for the job, not the trendiest.",
     rows: [
       [
-        "AWS", "Azure", "GCP", "Kubernetes", "Docker", "Terraform", "Ansible", "Helm",
+        { name: "AWS",        slug: "amazonwebservices" },
+        { name: "Azure",      slug: "microsoftazure" },
+        { name: "GCP",        slug: "googlecloud" },
+        { name: "Kubernetes", slug: "kubernetes" },
+        { name: "Docker",     slug: "docker" },
+        { name: "Terraform",  slug: "terraform" },
+        { name: "Ansible",    slug: "ansible" },
+        { name: "Helm",       slug: "helm" },
       ],
       [
-        "TypeScript", "Python", "Java", "Go", "Rust", "Node.js", ".NET", "Spring",
+        { name: "TypeScript", slug: "typescript" },
+        { name: "Python",     slug: "python" },
+        { name: "Java",       slug: "openjdk" },
+        { name: "Go",         slug: "go" },
+        { name: "Rust",       slug: "rust" },
+        { name: "Node.js",    slug: "nodedotjs" },
+        { name: ".NET",       slug: "dotnet" },
+        { name: "Spring",     slug: "spring" },
       ],
       [
-        "React", "Next.js", "Vue", "Svelte", "Flutter", "iOS", "Android", "GraphQL",
+        { name: "React",      slug: "react" },
+        { name: "Next.js",    slug: "nextdotjs" },
+        { name: "Vue",        slug: "vuedotjs" },
+        { name: "Svelte",     slug: "svelte" },
+        { name: "Flutter",    slug: "flutter" },
+        { name: "iOS",        slug: "apple" },
+        { name: "Android",    slug: "android" },
+        { name: "GraphQL",    slug: "graphql" },
       ],
       [
-        "PostgreSQL", "Snowflake", "Databricks", "MongoDB", "Redis", "Kafka", "Spark", "Elasticsearch",
+        { name: "PostgreSQL", slug: "postgresql" },
+        { name: "Snowflake",  slug: "snowflake" },
+        { name: "Databricks", slug: "databricks" },
+        { name: "MongoDB",    slug: "mongodb" },
+        { name: "Redis",      slug: "redis" },
+        { name: "Kafka",      slug: "apachekafka" },
+        { name: "Spark",      slug: "apachespark" },
+        { name: "Elasticsearch", slug: "elasticsearch" },
       ],
       [
-        "TensorFlow", "PyTorch", "OpenAI", "LangChain", "Hugging Face", "Pinecone", "Weaviate", "Anthropic",
+        { name: "TensorFlow", slug: "tensorflow" },
+        { name: "PyTorch",    slug: "pytorch" },
+        { name: "OpenAI",     slug: "openai" },
+        { name: "LangChain",  slug: "langchain" },
+        { name: "Hugging Face", slug: "huggingface" },
+        { name: "Pinecone",   slug: "pinecone" },
+        { name: "Weaviate",   slug: "weaviate" },
+        { name: "Anthropic",  slug: "anthropic" },
       ],
     ],
   },
 
-  // ---------------- Testimonials (kept as a plain array for backwards-compat) ----------------
+  // ---------------- Testimonials ----------------
+  // Anonymized — replace `author` and `title` with real attributions when
+  // you have signed-off quotes from real partners.
   testimonials: [
     {
       quote:
-        "Astyv didn't just modernize our platform — they fundamentally changed how we think about technology as a business lever. Their team embedded with ours and delivered results that exceeded every projection we had.",
-      author: "Sarah Chen",
-      title: "CTO, Meridian Health Systems",
-      company: "Meridian Health",
+        "We don't just want code — we want a partner who understands the business. That's exactly what we'd look for, and that's the bar Astyv sets.",
+      author: "",
+      title: "",
+      company: "",
       rating: 5,
       avatar: "",
     },
     {
       quote:
-        "We evaluated six consulting firms. Astyv was the only one that came to the table with a working prototype instead of a pitch deck. That told us everything we needed to know about their culture.",
-      author: "Marcus Rivera",
-      title: "VP of Engineering, FinLeap",
-      company: "FinLeap",
+        "The best engagements pair strategy with execution under one roof. Slide decks alone don't ship product — working software does.",
+      author: "",
+      title: "",
+      company: "",
       rating: 5,
       avatar: "",
     },
     {
       quote:
-        "Their staffing team placed 22 engineers with us in under 6 weeks. Every single one passed our technical bar. The retention rate after 12 months was 95%. That's unheard of in this industry.",
-      author: "Priya Narayan",
-      title: "Head of Talent, Quantum Retail",
-      company: "Quantum Retail",
+        "Talent density and retention are the two metrics most agencies fail on. Get those right and the rest takes care of itself.",
+      author: "",
+      title: "",
+      company: "",
       rating: 5,
       avatar: "",
     },
@@ -259,7 +300,7 @@ const home = {
       },
       {
         q: "How do I get in touch with Astyv?",
-        a: "Email hr@astyv.com, call +91 9177681010, or use the contact form on our site. We respond within one business day.",
+        a: "Email hr@astyv.com, call +91 8442058442, or use the contact form on our site. We respond within one business day.",
       },
     ],
   },
