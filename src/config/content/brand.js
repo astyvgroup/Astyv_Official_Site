@@ -55,7 +55,8 @@ const brand = {
     iconWhite: "/brand/icon-white.svg",            // dark bg + white A (outline)
     full: "/brand/logo.svg",                       // white bg + purple wordmark + black tagline
     fullDark: "/brand/logo-dark.svg",              // purple bg + white wordmark (lockup pill)
-    fullTransparent: "/brand/logo-transparent.svg",// transparent bg + purple wordmark + white tagline (best for dark sites)
+    fullTransparent: "/brand/logo-transparent.svg",      // transparent bg + purple wordmark + white tagline (dark mode)
+    fullTransparentLight: "/brand/logo-transparent-light.svg", // same lockup with dark tagline (light mode)
   },
 };
 
