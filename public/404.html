@@ -4,17 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
-    <title>Astyv — Loading…</title>
+    <meta name="theme-color" content="#0A0A0A" />
+    <title>404 — Page Not Found | Astyv</title>
     <style>
       html, body {
-        margin: 0; padding: 0; height: 100%;
+        margin: 0; padding: 0; min-height: 100%;
         background: #0A0A0A; color: #fff;
-        font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+        font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
         display: flex; align-items: center; justify-content: center;
         text-align: center;
       }
+      .wrap { padding: 2rem; max-width: 520px; }
       .pulse {
-        width: 56px; height: 56px; border-radius: 50%;
+        width: 56px; height: 56px; border-radius: 50%; margin: 0 auto;
         background: radial-gradient(circle, #852BED 0%, transparent 70%);
         animation: pulse 1.4s ease-in-out infinite;
       }
@@ -22,32 +24,26 @@
         0%, 100% { transform: scale(0.85); opacity: 0.7; }
         50%      { transform: scale(1.1);  opacity: 1; }
       }
-      h1 { font-size: 18px; font-weight: 500; margin-top: 24px; opacity: 0.8; letter-spacing: 0.04em; }
-      a  { color: #A558FF; text-decoration: none; }
+      h1 {
+        font-size: 28px; font-weight: 600; margin: 28px 0 12px;
+        letter-spacing: -0.01em;
+      }
+      p { margin: 0 0 24px; opacity: 0.7; font-size: 15px; line-height: 1.6; }
+      a.home {
+        display: inline-block; padding: 12px 24px;
+        background: #852BED; color: #fff; text-decoration: none;
+        border-radius: 8px; font-weight: 500; font-size: 14px;
+        transition: background 0.15s ease;
+      }
+      a.home:hover { background: #7022d6; }
     </style>
-    <script>
-      // GitHub Pages SPA fallback: when a deep link like /services is requested
-      // and the static server returns 404, save the path so index.html can replay it
-      // into the React Router on load.
-      (function() {
-        try {
-          var path = window.location.pathname + window.location.search + window.location.hash;
-          if (path && path !== '/' && path !== '/index.html') {
-            sessionStorage.setItem('astyv:redirect', path);
-          }
-          var origin = window.location.protocol + '//' + window.location.host;
-          window.location.replace(origin + '/');
-        } catch (e) {
-          // Fallback: just show the message and let user click home
-        }
-      })();
-    </script>
   </head>
   <body>
-    <div>
+    <div class="wrap">
       <div class="pulse"></div>
-      <h1>Loading Astyv…</h1>
-      <p style="margin-top: 12px; opacity: 0.5; font-size: 14px;">If you're not redirected, <a href="/">go home</a>.</p>
+      <h1>Page not found</h1>
+      <p>The page you're looking for doesn't exist or has moved. Check the URL, or head back home.</p>
+      <a class="home" href="/">Go home</a>
     </div>
   </body>
 </html>
