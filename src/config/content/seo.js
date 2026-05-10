@@ -16,7 +16,7 @@ const seo = {
     titleSuffix: " | Astyv",
     keywords:
       "Astyv, astyv, Astyv Private Limited, IT consulting Hyderabad, software development India, digital transformation, technology staffing, AI engineering, product innovation, enterprise software, cloud migration, DevOps, custom software",
-    image: "/og-image.png",
+    image: "/og-image-v2.png",
   },
 
   home: {

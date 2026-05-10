@@ -28,7 +28,7 @@ Site/
 ├── public/
 │   ├── data/careers.json          ← Job listings (add/remove openings here)
 │   ├── brand/                     ← Logo SVGs (already populated from Branding_New)
-│   ├── og-image.png/.svg          ← Social-share card (1200×630)
+│   ├── og-image-v2.png/.svg       ← Social-share card (1200×630) — re-render: node scripts/render-og.mjs
 │   ├── favicon-*.png              ← Browser tab icons
 │   ├── CNAME                      ← Custom domain (astyv.com)
 │   ├── robots.txt                 ← Search-engine instructions

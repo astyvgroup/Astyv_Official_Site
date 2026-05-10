@@ -4,8 +4,8 @@ import siteContent from '../../config/siteContent';
 import StructuredData from './StructuredData';
 
 const SITE_URL = siteContent.launch.siteUrl || 'https://astyv.com';
-const DEFAULT_OG = `${SITE_URL}/og-image.png`;
-const DEFAULT_TWITTER = `${SITE_URL}/twitter-image.png`;
+const DEFAULT_OG = `${SITE_URL}/og-image-v2.png`;
+const DEFAULT_TWITTER = `${SITE_URL}/twitter-image-v2.png`;
 
 function setMeta(selector, attr, value) {
     if (typeof document === 'undefined') return;
