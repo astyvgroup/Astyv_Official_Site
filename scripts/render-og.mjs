@@ -5,10 +5,8 @@
 //  Reads:  public/og-image-v2.svg
 //  Writes: public/og-image-v2.png, public/twitter-image-v2.png (1200x630)
 //
-//  One-off run (no permanent devDep):
-//    npx -p @resvg/resvg-js@2 node scripts/render-og.mjs
-//
-//  Re-run whenever public/og-image-v2.svg changes.
+//  Re-run whenever public/og-image-v2.svg changes:
+//    node scripts/render-og.mjs
 // =====================================================================
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -20,13 +18,11 @@ const root = join(__dirname, '..');
 
 const svg = readFileSync(join(root, 'public/og-image-v2.svg'), 'utf8');
 
-const resvg = new Resvg(svg, {
+const png = new Resvg(svg, {
     fitTo: { mode: 'width', value: 1200 },
     background: '#0A0A0A',
     font: { loadSystemFonts: true },
-});
-
-const png = resvg.render().asPng();
+}).render().asPng();
 
 writeFileSync(join(root, 'public/og-image-v2.png'), png);
 writeFileSync(join(root, 'public/twitter-image-v2.png'), png);
