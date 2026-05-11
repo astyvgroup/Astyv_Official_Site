@@ -165,6 +165,9 @@ export default function StructuredData({ page, breadcrumbs, extra }) {
 
         return () => {
             removeScript('astyv-ld-breadcrumb');
+            removeScript('astyv-ld-faq');
+            removeScript('astyv-ld-localbusiness');
+            removeScript('astyv-ld-services');
             removeScript('astyv-ld-extra');
         };
     }, [location.pathname, page, breadcrumbs, extra]);
